@@ -13,6 +13,13 @@
 
 class MyTestEnvironment : public ::testing::Environment {
 public:
+	void foo() { printf("foo\n"); }
+
+	static MyTestEnvironment& instance() {
+		static MyTestEnvironment* env = new MyTestEnvironment;
+		return *env;
+	}
+
 	void SetUp() {
 		printf("Global SetUp()\n");
 	}
@@ -29,7 +36,9 @@ public:
 // 2. main
 int main(int argc, char** argv) {
 	::testing::InitGoogleTest(&argc, argv);
-	::testing::AddGlobalTestEnvironment(new MyTestEnvironment);
+	// ::testing::AddGlobalTestEnvironment(new MyTestEnvironment);
+	MyTestEnvironment& env = MyTestEnvironment::instance();
+	::testing::AddGlobalTestEnvironment(&env);
 
 	return RUN_ALL_TESTS();
 }
@@ -39,6 +48,8 @@ class FirstTest : public ::testing::Test {
 protected:
 	virtual void SetUp() override {
 		printf("FirstTest.SetUp()\n");
+		MyTestEnvironment& env = MyTestEnvironment::instance();
+		env.foo();
 	}
 
 	virtual void TearDown() override {
