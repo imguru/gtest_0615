@@ -11,15 +11,16 @@
 // 테스트를 만드는 방법.
 // TestCaseName.TestName
 TEST(TestSuiteName, TestName) {
-
+	FAIL();  // 명시적으로 테스트를 실패시킬 수 있습니다.
+			 // 테스트를 실패할 때, 실패의 이유를 명시적으로 지정하는 것이 중요합니다.
 }
 
 TEST(SampleTest, FooTest) {
-
+	FAIL() << "작성 중입니다...";
 }
 
 TEST(SampleTest, GooTest) {
-
+	SUCCEED();
 }
 
 
