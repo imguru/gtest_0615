@@ -65,6 +65,65 @@ TEST(GoogleTest, Sample3) {
 	EXPECT_NEAR(a, b, 0.000000001);
 }
 
+// 4. 예외 테스트 기능
+void IsValidFilename(const std::string& filename) {
+	throw 1;
+	if (filename.empty()) {
+		throw std::invalid_argument("filename should not empty!");
+	}
+	// ...
+}
+
+// ASSERT_THROW / EXPECT_THROW
+// ASSERT_ANY_THROW / EXPECT_ANY_THROW
+TEST(GoogleTest, DISABLED_Sample4) {
+	// 테스트 코드안에서 변수명을 사용할 때, 상황에 부합되는 변수명을 사용하는 것이 좋습니다.
+	// std::string filename = "";
+	std::string emptyFilename = "";
+		
+	// EXPECT_THROW(IsValidFilename(emptyFilename), std::invalid_argument);
+	EXPECT_ANY_THROW(IsValidFilename(emptyFilename));
+}
+
+// 5. 테스트 비활성화 
+//  - 특정한 테스트가 포함되지 않고, 테스트가 수행되길 원한다.
+//   => 테스트를 주석처리하면, 잊혀진 테스트가 됩니다.
+//   => TestSuite 이름 또는 Test의 이름이 DISABLED_로 시작하는 경우, 자동으로 비활성화됩니다.
+//    : ./a.out --gtest_also_run_disabled_tests
+//       - 비활성된 테스트도 구동할 수 있습니다.
+
+// IsValidFileName에 빈문자열을 전달하였을 때, std::invalid_argument 예외가 발생하는지 여부를 검증하고 싶다.
+#if 1
+TEST(DISABLED_GoogleTest, Sample4_withoutExceptionTest) {
+	std::string filename = "";
+	
+	try {
+		IsValidFilename(filename);
+		FAIL() << "예외가 발생하지 않음.";
+	} catch (std::invalid_argument& e) {
+		SUCCEED();
+	} catch (...) {
+		FAIL() << "다른 종류의 예외가 발생하였음.";
+	}
+}
+#endif
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
