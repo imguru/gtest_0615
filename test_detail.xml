@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites tests="7" failures="0" disabled="2" errors="0" time="0" timestamp="2020-06-15T07:39:09" name="AllTests">
+  <testsuite name="GoogleTest" tests="4" failures="0" disabled="1" errors="0" time="0" timestamp="2020-06-15T07:39:09">
+    <testcase name="Sample1" status="run" result="completed" time="0" timestamp="2020-06-15T07:39:09" classname="GoogleTest" />
+    <testcase name="Sample2" status="run" result="completed" time="0" timestamp="2020-06-15T07:39:09" classname="GoogleTest" />
+    <testcase name="Sample3" status="run" result="completed" time="0" timestamp="2020-06-15T07:39:09" classname="GoogleTest" />
+    <testcase name="DISABLED_Sample4" status="notrun" result="suppressed" time="0" timestamp="1970-01-01T00:00:00" classname="GoogleTest" />
+  </testsuite>
+  <testsuite name="DISABLED_GoogleTest" tests="1" failures="0" disabled="1" errors="0" time="0" timestamp="1970-01-01T00:00:00">
+    <testcase name="Sample4_withoutExceptionTest" status="notrun" result="suppressed" time="0" timestamp="1970-01-01T00:00:00" classname="DISABLED_GoogleTest" />
+  </testsuite>
+  <testsuite name="SampleTest" tests="2" failures="0" disabled="0" errors="0" time="0" timestamp="2020-06-15T07:39:09">
+    <testcase name="P_foo" status="run" result="completed" time="0" timestamp="2020-06-15T07:39:09" classname="SampleTest">
+<properties>
+<property name="cpu" value="1.5"/>
+<property name="mem" value="15%"/>
+</properties>
+    </testcase>
+    <testcase name="N_foo" status="run" result="completed" time="0" timestamp="2020-06-15T07:39:09" classname="SampleTest">
+<properties>
+<property name="cpu" value="2.5"/>
+<property name="mem" value="35%"/>
+</properties>
+    </testcase>
+  </testsuite>
+</testsuites>

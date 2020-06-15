@@ -94,7 +94,7 @@ TEST(GoogleTest, DISABLED_Sample4) {
 
 // IsValidFileName에 빈문자열을 전달하였을 때, std::invalid_argument 예외가 발생하는지 여부를 검증하고 싶다.
 #if 1
-TEST(DISABLED_GoogleTest, Sample4_withoutExceptionTest) {
+TEST(GoogleTest, Sample4_withoutExceptionTest) {
 	std::string filename = "";
 	
 	try {
@@ -107,6 +107,56 @@ TEST(DISABLED_GoogleTest, Sample4_withoutExceptionTest) {
 	}
 }
 #endif
+
+// 6. Test Filter 기능을 제공합니다.
+//   $ ./a.out --gtest_filter=GoogleTest.Sample1
+//   $ ./a.out --gtest_filter=*.P_* 
+TEST(SampleTest, P_foo) {
+	// XML / JSON에 추가적인 내용을 기록하는 것도 가능합니다.
+	printf("SampleTest.P_foo");
+	RecordProperty("cpu", "1.5");
+	RecordProperty("mem", "15%");
+}
+
+TEST(SampleTest, N_foo) {
+	printf("SampleTest.N_foo");
+	RecordProperty("cpu", "2.5");
+	RecordProperty("mem", "35%");
+}
+
+// 7. XML / JSON - Output(xUnit Test Frmework)
+//  $ ./a.out --test_output=[xml|json]
+
+// GoogleTest 용어        xUnit Test Framework
+//    TestCase       ->   TestSuite
+//        Test1                 TestCase1
+//        Test2                 TestCase2
+//
+
+// 6. repect Test
+// $ ./a.out --gtest_repeat=1000
+// $ ./a.out --gtest_repeat=1000 --gtest_shuffle --gtest_break_on_failure
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
