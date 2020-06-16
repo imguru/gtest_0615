@@ -30,6 +30,7 @@ class CarTest : public ::testing::Test {};
 // 테스트 전용 하위 클래스 패턴
 //  : 테스트 하고자 하는 클래스가 테스트를 위한 기능을 제공하고 있지 않다면,
 //    테스트 코드 안에서 자식 클래스를 통해 해당 기능을 제공하면 된다.
+//     - SUT가 제공하는 인터페이스가 virtual 함수 이어야 한다.
 class TestEngine : public Engine {
 	// 테스트를 위한 속성
 	bool isStart;
