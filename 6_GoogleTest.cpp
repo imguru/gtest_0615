@@ -125,7 +125,7 @@ TEST(SampleTest, N_foo) {
 }
 
 // 7. XML / JSON - Output(xUnit Test Frmework)
-//  $ ./a.out --test_output=[xml|json]
+//  $ ./a.out --gtest_output=[xml|json]
 
 // GoogleTest 용어        xUnit Test Framework
 //    TestCase       ->   TestSuite

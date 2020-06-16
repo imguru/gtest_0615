@@ -11,6 +11,7 @@
 
 #include <gtest/gtest.h>
 
+// Google Test Framework에 사용자가 만든 객체를 등록할 때, 객체를 반드시 힙에 생성해야 합니다.
 class MyTestEnvironment : public ::testing::Environment {
 public:
 	void foo() { printf("foo\n"); }
