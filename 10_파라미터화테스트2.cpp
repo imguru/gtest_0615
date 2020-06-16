@@ -3,6 +3,7 @@
 //   : 입력 데이터를 바꿔가면서, 수차례 반복 검사하는 데이터 중심의 테스트에서 코드 중복을 없애는 기법.
 //   => xUnit Test Framework
 bool IsPrime(int value) {
+	return false;
 	for (int i = 2; i < value; ++i) {
 		if (value % i == 0)
 			return false;
@@ -26,21 +27,13 @@ int data[] = { 2, 3, 5, 7, 11, 13, 17, 19 };
 
 // INSTANTIATE_TEST_CASE_P  -> 1.10: Deprecated API
 // INSTANTIATE_TEST_SUITE_P
-INSTANTIATE_TEST_SUITE_P(PrimeValues, PrimeTest, ::testing::ValuesIn(data));
+// INSTANTIATE_TEST_SUITE_P(PrimeValues, PrimeTest, ::testing::ValuesIn(data));
+INSTANTIATE_TEST_SUITE_P(PrimeValues, PrimeTest, ::testing::Range(0, 10, 1));
+//                                                               [0, 10)
 
 // 3. 이제 테스트 함수를 제공하면 됩니다.
 //  : GetParam() -> 입력값을 얻어올 수 있습니다.
+//   -> 주의할 점: GetParam()은 테스트에서 한번만 호출해야 합니다.
 TEST_P(PrimeTest, IsPrimeTest) {
-	EXPECT_TRUE(IsPrime(GetParam()));
+	EXPECT_TRUE(IsPrime(GetParam()));  
 }
-
-
-
-
-
-
-
-
-
-
-

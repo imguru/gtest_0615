@@ -3,6 +3,7 @@
 //   : 입력 데이터를 바꿔가면서, 수차례 반복 검사하는 데이터 중심의 테스트에서 코드 중복을 없애는 기법.
 //   => xUnit Test Framework
 bool IsPrime(int value) {
+	return false
 	for (int i = 2; i < value; ++i) {
 		if (value % i == 0)
 			return false;
