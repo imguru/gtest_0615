@@ -67,6 +67,28 @@ public:
 	// 마지막 한정자에 대해서는 괄호로 한번 묶어줘야 합니다.
 };
 
+// 행위 기반 검증 - Mock
+//   1. 호출 여부
+//   2. 호출 횟수
+//   3. 호출 순서
+
+// 테스트 대역을 직접 작성하는 것은 안 좋은 접근입니다.
+//  => 테스트 대역을 자동으로 생성할 수 있는 Frakework을 이용해야 합니다.
+//  1. Stub
+//    : 특수한 상황을 시뮬레이션 한다. 협력 객체에 대해서 원하는 결과를 주는 테스트 대역으로 변경해서 사용한다.
+//  2. Fake
+//    : 의존하는 객체가 준비되지 않았거나, 사용하기 어려울 때, 느릴 때
+//      가벼운 테스트 대역을 만들어서 역활을 대신해 테스트를 수행한다.
+//  3. Spy  - X: Mock Object가 Spy의 역활을 대체할 수 있기 때문에, 거의 사용될 필요가 없다.
+//    : 객체에 작용을 가했을 때, 관찰할 수 있는 부수효과 존재하지 않는다.
+//      목격한 일을 기록해두었다가, 테스트에서 검증에 사용할 수 있도록 하는 테스트 대역
+//  4. Mock
+//    : 객체에 작용을 가했을 때, 관찰할 수 있는 부수효과 존재하지 않는다.
+//      행위 기반 검증 - 함수의 호출 여부, 함수의 호출 횟수, 함수의 호출 순서에 대한 부분을 통해 검증을 수행한다.
+//
+//  대분의 테스트 Mock 프레임워크는 모의 객체의 생성 뿐 아니라, Stub 또는 Fake를 만들 수 있는 기능을 제공합니다.
+
+
 TEST(DLoggerTest, WriteTest) {
 	// Arrange
 	DLogger logger;
@@ -79,6 +101,7 @@ TEST(DLoggerTest, WriteTest) {
 	// Assert(기대 동작에 대한 부분을 먼저 명시해야 합니다.)
 	EXPECT_CALL(mock1, Write(test_level, test_message));
 	EXPECT_CALL(mock2, Write(test_level, test_message));
+	// 위의 코드는 mock1과 mock2에 대해서 Write(test_level, test_message) 형태로 호출되었는지 여부를 체크한다.
 
 	// Act
 	logger.Write(test_level, test_message);
