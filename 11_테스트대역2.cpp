@@ -78,6 +78,10 @@ public:
 class LoggerTest : public ::testing::Test {
 };
 
+// '의존성 주입 모델'을 사용하면
+//  1. 테스트 대역을 쉽게 적용할 수 있다.
+//  2. 제품 코드를 사용하는 방식과 동일하게 테스트 코드를 작성할 수 있다.
+
 // 다섯글자 이상의 파일명에서 IsValidLogFilename이 true를 반환하는가?
 TEST_F(LoggerTest, IsValidLogFilename_NameLoggerThan5Chars_ReturnsTrue) {
 	TestDouble td;
@@ -97,6 +101,22 @@ TEST_F(LoggerTest, IsValidLogFilename_NameShorterThan5Chars_ReturnsFalse) {
 
 	EXPECT_FALSE(actual) << "파일명이 다섯글자 미만일 때";
 }
+
+
+// 테스트 대역 종류 - 4가지
+// 1. Test Stub    -> Stub
+// 2. Fake Object  -> Fake
+// 3. Test Spy     -> Spy
+// 4. Mock Object  -> Mock
+
+
+
+
+
+
+
+
+
 
 
 
