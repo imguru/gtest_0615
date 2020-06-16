@@ -16,7 +16,7 @@ public:
 	int GetAge() const {
 		return age;
 	}
-}
+};
 
 struct IDatabase {
 	virtual ~IDatabase() {}
@@ -51,6 +51,9 @@ public:
 //
 //  UserManager -> Database : IDatabase(준비되지 않음)
 
+// Docker - Test
+//           : CI - Jenkins, Travis CI, Circle CI
+
 #include <gtest/gtest.h>
 #include <map>
 
@@ -69,6 +72,25 @@ public:
 class UserManagerTest : public ::testing::Test {
 };
 
+
+// 사용자 정의 객체에 대해서 구글 테스트가 제공하는 단언 매크로를 이용하기 위해서는
+// 연산자 재정의 함수가 제공되어야 합니다.
+// EXPECT_EQ(==)
+bool operator==(const User& lhs, const User& rhs) {
+	return lhs.GetName() == rhs.GetName() &&
+		lhs.GetAge() == rhs.GetAge();
+}
+
+// EXPECT_NE(!=)
+bool operator!=(const User& lhs, const User& rhs) {
+	return !(lhs == rhs);
+}
+
+// 사용자 정의 객체에 대해서 문자열로 표현하는 방식
+std::ostream& operator<<(std::ostream& os, const User& user) {
+	return os << "User(name=" << user.GetName() << ", age=" << user.GetAge() << ")";
+}
+
 TEST_F(UserManagerTest, SaveTest) {
 	FakeDatabase fake;
 	UserManager manager(&fake);
@@ -79,8 +101,9 @@ TEST_F(UserManagerTest, SaveTest) {
 	manager.Save(&expected);
 	User* actual = manager.Load(testName);
 
-	EXPECT_NE(actual, null) << "Load 하였을 때";
-	EXPECT_EQ(*actual, *expected) << "Load 하였을 때";
+	EXPECT_NE(actual, nullptr) << "Load 하였을 때";
+	// EXPECT_EQ(*actual, expected) << "Load 하였을 때";
+	EXPECT_NE(*actual, expected) << "Load 하였을 때";
 }
 
 
