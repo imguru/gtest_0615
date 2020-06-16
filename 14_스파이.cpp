@@ -63,6 +63,7 @@ public:
 // DLogger에 대해서 2개 이상의 타겟을 등록하고, Write를 수행하였을 때, Target에 대해서 Write가 호출되었는지 여부를 
 // 검증하고 싶다.
 TEST(DLoggerTest, WriteTest) {
+	// Arrange
 	DLogger logger;
 	SpyTarget spy1, spy2;
 	logger.AddTarget(&spy1);
@@ -70,8 +71,10 @@ TEST(DLoggerTest, WriteTest) {
 	Level test_level = INFO;
 	std::string test_message = "log_message";
 
+	// Act
 	logger.Write(test_level, test_message);
 
+	// Assert
 	EXPECT_TRUE(spy1.IsReceived(test_level, test_message));
 	EXPECT_TRUE(spy2.IsReceived(test_level, test_message));
 }
