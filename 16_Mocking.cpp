@@ -18,10 +18,10 @@ struct Mp3 {
 // 1. Mocking
 //    MOCK_METHOD(반환타입, 메소드이름, (인자), (한정자));
 // 한정자
-//  - 1. override
-//    2. const
-//    3. noexcept
-//    4. stdcall, cdecl ...
+//  - 1. override - virtual 함수에 대해서 권장된다.
+//    2. const - const 함수에 대해서 반드시 필요하다.
+//    3. noexcept - noexcept에 함수에 대해서 반드시 필요하다.
+//    4. stdcall - CallType: STDMEHTODCALLTYPE: Windows 특화 함수에 대해서 필요하다.
 //
 // 3. 테스트 대역의 인터페이스에서 제공하는 모든 함수에 대해서 작업해야 합니다.
 class MockMp3 : public Mp3 {

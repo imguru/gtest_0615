@@ -14,7 +14,7 @@ bool IsPrime(int value) {
 
 #include <gtest/gtest.h>
 
-// 1. TestCase(TestSuite) class - TestWithParm<InputDataType>
+// 1. TestCase(TestSuite) class - TestWithParam<InputDataType>
 // class PrimeTest : public ::testing::Test {
 class PrimeTest : public ::testing::TestWithParam<int> {
 };
