@@ -34,20 +34,3 @@ TEST(FooTest, foo) {
 TEST(FooTest, goo) {
 	EXPECT_TIMEOUT(foo(), 2);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
