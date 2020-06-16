@@ -5,8 +5,14 @@ protected:
 	int age;
 public:
 	User() : age(42) {}
-private:
 
+	void A() { a(); }  
+	void B() { b(); }
+	// public 함수가 단위 테스트의 대상입니다.
+
+private:
+	void a() {}
+	void b() {}
 };
 
 // 접근하고자 하는 멤버 변수나 또는 함수의 접근 지정자가 protected인 경우
