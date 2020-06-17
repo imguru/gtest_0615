@@ -36,12 +36,3 @@ TEST(MockTest, FooTest) {
 
 	sut.Do(&mock);
 }
-
-
-
-
-
-
-
-
-
