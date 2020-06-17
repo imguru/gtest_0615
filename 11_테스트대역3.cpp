@@ -38,59 +38,38 @@ public:
 	}
 };
 
-#include <gtest/gtest.h>
+#include <gmock/gmock.h>
 
-class TestDouble : public IFileSystem {
+class MockFileSystem : public IFileSystem {
 public:
-	bool IsValid(const std::string& filename) override {
-		return true;
-	}
+	MOCK_METHOD(bool, IsValid, (const std::string& filename), (override));
 };
 
 class LoggerTest : public ::testing::Test {
 };
 
+using ::testing::_;
+using ::testing::Return;
+using ::testing::NiceMock;
+
 TEST_F(LoggerTest, IsValidLogFilename_NameLoggerThan5Chars_ReturnsTrue) {
-	TestDouble td;
-	Logger logger(&td);
+	NiceMock<MockFileSystem> stub;
+	ON_CALL(stub, IsValid(_)).WillByDefault(Return(true));
 	std::string validFilename = "valid_filename.log";
+	Logger logger(&stub);
 
 	EXPECT_TRUE(logger.IsValidLogFilename(validFilename)) << "파일명이 다섯글자 이상일 때";
 }
 
 TEST_F(LoggerTest, IsValidLogFilename_NameShorterThan5Chars_ReturnsFalse) {
-	TestDouble td;
-	Logger logger(&td);
+	NiceMock<MockFileSystem> stub;
+	ON_CALL(stub, IsValid(_)).WillByDefault([](const std::string& filename) {
+		return true;
+	});
+	Logger logger(&stub);
 	std::string invalidFilename = "bad.log";
 	
 	bool actual = logger.IsValidLogFilename(invalidFilename);
 
 	EXPECT_FALSE(actual) << "파일명이 다섯글자 미만일 때";
 }
-
-
-// 테스트 대역 종류 - 4가지
-// 1. Test Stub    -> Stub
-// 2. Fake Object  -> Fake
-// 3. Test Spy     -> Spy
-// 4. Mock Object  -> Mock
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
