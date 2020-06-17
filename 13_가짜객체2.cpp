@@ -39,45 +39,55 @@ public:
 	}
 };
 
-#include <gtest/gtest.h>
-#include <map>
 
-class FakeDatabase : public IDatabase {
-	std::map<std::string, User*> data;
-public:
-	void SaveUser(const std::string& name, User* user) override {
-		data[name] = user;
-	}
-
-	User* LoadUser(const std::string& name) override {
-		return data[name];
-	}
-};
-
-class UserManagerTest : public ::testing::Test {
-};
-
-
-// 사용자 정의 객체에 대해서 구글 테스트가 제공하는 단언 매크로를 이용하기 위해서는
-// 연산자 재정의 함수가 제공되어야 합니다.
-// EXPECT_EQ(==)
 bool operator==(const User& lhs, const User& rhs) {
 	return lhs.GetName() == rhs.GetName() &&
 		lhs.GetAge() == rhs.GetAge();
 }
 
-// EXPECT_NE(!=)
 bool operator!=(const User& lhs, const User& rhs) {
 	return !(lhs == rhs);
 }
 
-// 사용자 정의 객체에 대해서 문자열로 표현하는 방식
+#include <gmock/gmock.h>
+#include <map>
+
 std::ostream& operator<<(std::ostream& os, const User& user) {
 	return os << "User(name=" << user.GetName() << ", age=" << user.GetAge() << ")";
 }
 
+class UserManagerTest : public ::testing::Test {
+};
+
+class MockDatabase : public IDatabase {
+	std::map<std::string, User*> data;
+public:
+	void DelegateToFake() {
+		ON_CALL(*this, SaveUser).WillByDefault([this](const std::string& name, User* user) {
+			SaveUserImpl(name, user);
+		});
+		ON_CALL(*this, LoadUser).WillByDefault([this](const std::string& name) {
+			return LoadUserImpl(name);
+		});
+	}
+
+	MOCK_METHOD(void, SaveUser, (const std::string& name, User* user), (override));
+	MOCK_METHOD(User*, LoadUser, (const std::string& name), (override));
+
+private:
+	void SaveUserImpl(const std::string& name, User* user) {
+		data[name] = user;
+	}
+
+	User* LoadUserImpl(const std::string& name) {
+		return data[name];
+	}
+};
+
+using ::testing::NiceMock;
 TEST_F(UserManagerTest, SaveTest) {
-	FakeDatabase fake;
+	NiceMock<MockDatabase> fake;
+	fake.DelegateToFake();
 	UserManager manager(&fake);
 	std::string testName = "test_name";
 	int testAge = 42;
@@ -87,34 +97,5 @@ TEST_F(UserManagerTest, SaveTest) {
 	User* actual = manager.Load(testName);
 
 	EXPECT_NE(actual, nullptr) << "Load 하였을 때";
-	// EXPECT_EQ(*actual, expected) << "Load 하였을 때";
-	EXPECT_NE(*actual, expected) << "Load 하였을 때";
+	EXPECT_EQ(*actual, expected) << "Load 하였을 때";
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
