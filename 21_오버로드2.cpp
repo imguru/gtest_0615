@@ -37,7 +37,7 @@ using ::testing::Le;
 TEST(PrinterTest, Print) {
 	MockPrinter mock;
 
-	// 모호성 에러가 발생하는 경우, 어떤 함수를 호출하는지 여부를 정확하게 명시해야 한다.
+	// '모호성 에러'가 발생하는 경우, 어떤 함수를 호출하는지 여부를 정확하게 명시해야 한다.
 	// EXPECT_CALL(mock, Print(10));
 	// EXPECT_CALL(mock, Print('c'));
 	EXPECT_CALL(mock, Print(An<int>())); 

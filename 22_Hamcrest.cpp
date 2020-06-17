@@ -42,7 +42,6 @@ private:
 
 // Field: 멤버 변수
 // Property: Accessor Method(접근자 메소드) - Getter / Setter
-
 using ::testing::Field;     // 멤버 변수 접근
 using ::testing::Property;  // Getter 사용
 using ::testing::Eq;
