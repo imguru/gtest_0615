@@ -54,6 +54,26 @@ void Do2(Foo* p) {
 	p->Add(10, 34);
 }
 
+void Do3(Foo* p) {
+	p->Say("Hello");
+}
+
+using ::testing::HasSubstr;
+
+TEST(MockTest, Foo5) {
+	MockFoo mock;
+
+	// Say라는 함수에서 인자에 Hello라는 문자열이 포함되었는지 여부를 검증하고 싶다.
+	EXPECT_CALL(mock, Say(HasSubstr("Hello")));
+
+	Do3(&mock);
+}
+
+// 1. 호출 여부 - EXPECT_CALL
+// 2. 호출 횟수 - Times(AnyNumber, AtLeast, AtMost)
+// 3. 호출 순서
+// 4. 인자 검증 - Matcher
+
 using ::testing::AllOf;
 using ::testing::AnyOf;
 using ::testing::Not;
@@ -63,11 +83,12 @@ TEST(MockTest, Foo4) {
 	// 두번째 인자의 조건을 20 보다는 크고 30보다는 작거나 같아야 한다.
 	//   && - AllOf
 	//   || - AnyOf
-	EXPECT_CALL(mock, Add(10, Not(AllOf(Gt(20), Le(30))))).Times(4);
+	auto matcher = Not(AllOf(Gt(20), Le(30)));
+	// EXPECT_CALL(mock, Add(10, Not(AllOf(Gt(20), Le(30))))).Times(4);
+	EXPECT_CALL(mock, Add(10, matcher)).Times(4);
 
 	Do2(&mock);
 }
-
 
 using ::testing::AnyNumber;
 using ::testing::AtLeast;
