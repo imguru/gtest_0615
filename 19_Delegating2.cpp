@@ -36,7 +36,6 @@ TEST(MockFooTest, FooTest) {
 	});
 	*/
 	ON_CALL(mock, Concreate).WillByDefault([&mock](const char* str) {
-		// return foo();
 		return mock.FooConcreate(str); 
 	});
 
